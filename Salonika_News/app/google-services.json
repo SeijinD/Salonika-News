@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "433587779565",
+    "project_id": "salonika-news",
+    "storage_bucket": "salonika-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433587779565:android:a7241f26b82bdad65f99e4",
+        "android_client_info": {
+          "package_name": "eu.seijindemon.salonikanews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433587779565-okafcpimbs808e9s8igqbkiojqd48qav.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.seijindemon.salonikanews",
+            "certificate_hash": "f7e4f22b29611fbd1fe9fe4e2d5728a712851d43"
+          }
+        },
+        {
+          "client_id": "433587779565-j1qvjpqsehgff6s5gu8lh50n06d5gfrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAjMTjRimAI4Vz6kfnBMbS5ZV4lyl6lrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433587779565-j1qvjpqsehgff6s5gu8lh50n06d5gfrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

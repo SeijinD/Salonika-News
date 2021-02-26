@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Salonika News</string>
+    <string name="more">More</string>
+    <string name="share_it">Share It</string>
+    <string name="rate_it">Rate It</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="change_language">Change Language</string>
+</resources>

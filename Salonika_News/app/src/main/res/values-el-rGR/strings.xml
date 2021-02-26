@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Σαλόνικα Νέα</string>
+    <string name="more">Περισσότερα</string>
+    <string name="share_it">Μοιράσου το</string>
+    <string name="rate_it">Βαθμολογήστε το</string>
+    <string name="privacy_policy">"Πολιτική απορρήτου "</string>
+    <string name="change_language">Αλλαξε γλώσσα</string>
+</resources>
