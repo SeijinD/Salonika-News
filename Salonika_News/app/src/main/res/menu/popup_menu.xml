@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_baseline_menu_24"
-        android:title="@string/more"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/language"
-                android:icon="@drawable/ic_baseline_language_24"
-                android:title="@string/change_language"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/share"
-                android:icon="@drawable/ic_baseline_share_24"
-                android:title="@string/share_it"
-                app:showAsAction="ifRoom"/>
-            <item
-                android:id="@+id/rate"
-                android:icon="@drawable/ic_baseline_star_rate_24"
-                android:title="@string/rate_it"
-                app:showAsAction="always" />
+        android:id="@+id/language"
+        android:icon="@drawable/ic_baseline_language_24"
+        android:title="@string/change_language"
+        app:showAsAction="never" />
 
-            <item
-                android:id="@+id/privacy_policy"
-                android:icon="@drawable/ic_baseline_privacy_tip_24"
-                android:title="@string/privacy_policy"
-                app:showAsAction="always" />
-        </menu>
-    </item>
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="@string/share_it"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/rate"
+        android:icon="@drawable/ic_baseline_star_rate_24"
+        android:title="@string/rate_it"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/privacy_policy"
+        android:icon="@drawable/ic_baseline_privacy_tip_24"
+        android:title="@string/privacy_policy"
+        app:showAsAction="never" />
+
 </menu>
