@@ -8,26 +8,36 @@
     <fragment
         android:id="@+id/menuHome"
         android:name="eu.seijindemon.salonikanews.fragments.HomeFragment"
-        android:label="Home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/menuProfile"
         android:name="eu.seijindemon.salonikanews.fragments.ProfileFragment"
-        android:label="Profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/menuNotifications"
         android:name="eu.seijindemon.salonikanews.fragments.NotificationsFragment"
-        android:label="Notifications"
+        android:label="@string/notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/menuAbout"
         android:name="eu.seijindemon.salonikanews.fragments.AboutFragment"
-        android:label="About Us"
+        android:label="@string/about"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/menuRules"
         android:name="eu.seijindemon.salonikanews.fragments.RulesFragment"
-        android:label="Rules"
+        android:label="@string/rules"
         tools:layout="@layout/fragment_rules" />
+    <fragment
+        android:id="@+id/menuAddPost"
+        android:name="eu.seijindemon.salonikanews.fragments.AddPostFragment"
+        android:label="@string/addPost"
+        tools:layout="@layout/fragment_add_post" />
+    <activity
+        android:id="@+id/menuLogin"
+        android:name="eu.seijindemon.salonikanews.LoginActivity"
+        android:label="@string/login"
+        tools:layout="@layout/activity_login" />
 </navigation>

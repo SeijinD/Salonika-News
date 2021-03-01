@@ -1,10 +1,10 @@
 package eu.seijindemon.salonikanews
 
-data class ArticleInfo(
-    var articleList: ArrayList<Article> = arrayListOf()
+data class PostInfo(
+    var postList: ArrayList<Post> = arrayListOf()
 )
 
-data class Article(
+data class Post(
     var title: String,
     var category: String,
     var author: String,

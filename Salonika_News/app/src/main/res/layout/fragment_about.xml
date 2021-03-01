@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="20sp"
-        android:text="About Us" />
+        android:text="@string/about" />
 
 </LinearLayout>

@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="20sp"
-        android:text="Notifications" />
+        android:text="@string/notifications" />
 
 </LinearLayout>

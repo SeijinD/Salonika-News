@@ -9,9 +9,17 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/home"/>
         <item
+            android:id="@+id/menuLogin"
+            android:icon="@drawable/ic_baseline_login_24"
+            android:title="@string/login"/>
+        <item
             android:id="@+id/menuNotifications"
             android:icon="@drawable/ic_baseline_notifications_24"
             android:title="@string/notifications"/>
+        <item
+            android:id="@+id/menuAddPost"
+            android:icon="@drawable/ic_baseline_post_add_24"
+            android:title="@string/addPost"/>
         <item
             android:id="@+id/menuProfile"
             android:icon="@drawable/ic_baseline_face_24"

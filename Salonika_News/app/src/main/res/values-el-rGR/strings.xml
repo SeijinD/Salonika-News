@@ -11,4 +11,6 @@
     <string name="home">Aρχική</string>
     <string name="about">Σχετικά με εμάς</string>
     <string name="rules">"Κανόνες "</string>
+    <string name="login">"Σύνδεση "</string>
+    <string name="addPost">Προσθήκη δημοσίευσης</string>
 </resources>
