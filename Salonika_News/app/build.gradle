@@ -56,6 +56,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // Declare the dependency for the Firebase Authentication library
     implementation 'com.google.firebase:firebase-auth-ktx'
+    // Realtime Database
+    implementation 'com.google.firebase:firebase-database-ktx:19.6.0'
 
     // RecyclerView + CardView
     implementation "androidx.recyclerview:recyclerview:1.1.0"

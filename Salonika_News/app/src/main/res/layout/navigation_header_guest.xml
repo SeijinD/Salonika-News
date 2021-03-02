@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="20dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity_Guest">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProfile"
@@ -32,22 +32,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="FirstName LastName"
+        android:text="Guest"
         android:textColor="@color/purple_500"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/viewSupporter"
         app:layout_constraintStart_toEndOf="@+id/imageProfile"/>
-
-    <TextView
-        android:id="@+id/header_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="Email"
-        android:textColor="@color/purple_200"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/imageProfile"
-        app:layout_constraintTop_toBottomOf="@+id/viewSupporter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

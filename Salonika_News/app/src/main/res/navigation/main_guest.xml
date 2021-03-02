@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main_guest"
     app:startDestination="@id/menuHome">
 
     <fragment
@@ -10,11 +10,6 @@
         android:name="eu.seijindemon.salonikanews.fragments.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
-    <fragment
-        android:id="@+id/menuProfile"
-        android:name="eu.seijindemon.salonikanews.fragments.ProfileFragment"
-        android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/menuNotifications"
         android:name="eu.seijindemon.salonikanews.fragments.NotificationsFragment"
@@ -30,9 +25,9 @@
         android:name="eu.seijindemon.salonikanews.fragments.RulesFragment"
         android:label="@string/rules"
         tools:layout="@layout/fragment_rules" />
-    <fragment
-        android:id="@+id/menuAddPost"
-        android:name="eu.seijindemon.salonikanews.fragments.AddPostFragment"
-        android:label="@string/addPost"
-        tools:layout="@layout/fragment_add_post" />
+    <activity
+        android:id="@+id/menuRegister"
+        android:name="eu.seijindemon.salonikanews.RegisterActivity"
+        android:label="@string/register"
+        tools:layout="@layout/activity_register" />
 </navigation>

@@ -1,6 +1,5 @@
 package eu.seijindemon.salonikanews
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -25,7 +24,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -34,34 +32,23 @@ import kotlinx.android.synthetic.main.navigation_header.*
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var auth: FirebaseAuth
-    private var databaseReference :  DatabaseReference? = null
-    private var database: FirebaseDatabase? = null
+class MainActivity_Guest : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loadLocale()
+        setContentView(R.layout.activity_main_guest)
 
-        // Setup Firebase
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile")
-        // End Setup Firebase
-        loadHeader()
-
-        setContentView(R.layout.activity_main)
 
         // DrawLayout
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
+        val drawerLayout_Guest: DrawerLayout = findViewById(R.id.drawerLayout_Guest)
         findViewById<ImageView>(R.id.imageMenu).setOnClickListener{
-                drawerLayout.openDrawer(GravityCompat.START)
+            drawerLayout_Guest.openDrawer(GravityCompat.START)
         }
         // Nav
-        val navigationView: NavigationView = findViewById(R.id.navigationView)
+        val navigationView: NavigationView = findViewById(R.id.navigationView_Guest)
         navigationView.itemIconTintList = null
-        val navController: NavController = Navigation.findNavController(this, R.id.navHostFragment)
+        val navController: NavController = Navigation.findNavController(this, R.id.navHostFragment_Guest)
         NavigationUI.setupWithNavController(navigationView, navController)
         // Change Title in Toolbar
         navController.addOnDestinationChangedListener{ _, destination, _ ->
@@ -77,24 +64,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun loadHeader()
-    {
-        val user = auth.currentUser
-        val userreference = databaseReference?.child(user?.uid!!)
-
-        userreference?.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                header_first_last_name.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
-                header_email.text = snapshot.child("email").value.toString()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
     }
 
 
@@ -202,7 +171,7 @@ class MainActivity : AppCompatActivity() {
     // Change Language
     fun showChangeLanguageDialog() {
         val listItems = arrayOf("English", "Greek")
-        val mBuilder = AlertDialog.Builder(this@MainActivity)
+        val mBuilder = AlertDialog.Builder(this@MainActivity_Guest)
         mBuilder.setTitle(R.string.change_language)
         mBuilder.setSingleChoiceItems(listItems, -1)
         { dialog, i ->
@@ -241,7 +210,7 @@ class MainActivity : AppCompatActivity() {
 
     // Back Pressed
     override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MainActivity_Guest::class.java))
         finish()
     }
     // End Back Pressed

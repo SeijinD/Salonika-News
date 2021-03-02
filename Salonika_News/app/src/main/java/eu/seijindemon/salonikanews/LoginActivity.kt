@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -18,23 +19,44 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        val currentuser = auth.currentUser
+        if(currentuser != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         goRegister.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
+
+        login()
+    }
+
+    private fun login()
+    {
         loginButton.setOnClickListener{
-            if(emailFormLogin.text.toString().trim().isNotEmpty() || passwordFormLogin.text.toString().trim().isNotEmpty())
+            if(emailFormLogin.text.toString().trim().isEmpty())
             {
-                loginUser(emailFormLogin.text.toString().trim(), passwordFormLogin.text.toString().trim())
+                Toast.makeText(this, "Input Email", Toast.LENGTH_LONG).show()
+            }
+            else if(passwordFormLogin.text.toString().trim().isEmpty())
+            {
+                Toast.makeText(this, "Input Password", Toast.LENGTH_LONG).show()
             }
             else
             {
-                Toast.makeText(this, "Input Required", Toast.LENGTH_LONG).show()
+                loginUser(emailFormLogin.text.toString().trim(), passwordFormLogin.text.toString().trim())
             }
         }
 
-
+        guestButton.setOnClickListener{
+            val intent = Intent(this, MainActivity_Guest::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun loginUser(email: String, password: String)
@@ -45,12 +67,13 @@ class LoginActivity : AppCompatActivity() {
                 {
                     Log.e("Task Message", "Successful...")
 
-                    var intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
                 else
                 {
-                    Log.e("Task Message", "Failed..." +task.exception)
+                    Toast.makeText(this, "Login failed, please try again! ", Toast.LENGTH_LONG).show()
                 }
             }
     }

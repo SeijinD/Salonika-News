@@ -12,5 +12,7 @@
     <string name="rules">Rules</string>
     <string name="addPost">Add Post</string>
     <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="guest">Guest</string>
 
 </resources>
