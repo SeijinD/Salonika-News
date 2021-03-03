@@ -13,4 +13,6 @@
     <string name="rules">"Κανόνες "</string>
     <string name="login">"Σύνδεση "</string>
     <string name="addPost">Προσθήκη δημοσίευσης</string>
+    <string name="register">Εγγραφή</string>
+    <string name="guest">"Επισκέπτης "</string>
 </resources>

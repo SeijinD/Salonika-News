@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_register.*
+import www.sanju.motiontoast.MotionToast
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -31,23 +33,58 @@ class RegisterActivity : AppCompatActivity() {
         registerButton.setOnClickListener{
             if(emailFormRegister.text.toString().trim().isEmpty())
             {
-                Toast.makeText(this, "Input Email", Toast.LENGTH_LONG).show()
+                MotionToast.Companion.createToast(
+                    this,
+                    "Warning",
+                    "Input Email",
+                    MotionToast.Companion.TOAST_WARNING,
+                    MotionToast.Companion.GRAVITY_BOTTOM,
+                    MotionToast.Companion.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular))
             }
             else if(passwordFormRegister.text.toString().trim().isEmpty() || password2FormRegister.text.toString().trim().isEmpty())
             {
-                Toast.makeText(this, "Input Password or Comfirm Password", Toast.LENGTH_LONG).show()
+                MotionToast.Companion.createToast(
+                    this,
+                    "Warning",
+                    "Input Password or Confirm Password",
+                    MotionToast.Companion.TOAST_WARNING,
+                    MotionToast.Companion.GRAVITY_BOTTOM,
+                    MotionToast.Companion.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular))
             }
             else if (passwordFormRegister.text.toString().trim() != password2FormRegister.text.toString().trim())
             {
-                Toast.makeText(this, "Passwords are different", Toast.LENGTH_LONG).show()
+                MotionToast.Companion.createToast(
+                    this,
+                    "Warning",
+                    "Passwords are different",
+                    MotionToast.Companion.TOAST_WARNING,
+                    MotionToast.Companion.GRAVITY_BOTTOM,
+                    MotionToast.Companion.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular))
             }
             else if(firstNameFormRegister.text.toString().trim().isEmpty())
             {
-                Toast.makeText(this, "Input FirstName", Toast.LENGTH_LONG).show()
+                MotionToast.Companion.createToast(
+                    this,
+                    "Warning",
+                    "Input FirstName",
+                    MotionToast.Companion.TOAST_WARNING,
+                    MotionToast.Companion.GRAVITY_BOTTOM,
+                    MotionToast.Companion.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular))
             }
             else if(lastNameFormRegister.text.toString().trim().isEmpty())
             {
-                Toast.makeText(this, "Input LastName", Toast.LENGTH_LONG).show()
+                MotionToast.Companion.createToast(
+                    this,
+                    "Warning",
+                    "Input LastName",
+                    MotionToast.Companion.TOAST_WARNING,
+                    MotionToast.Companion.GRAVITY_BOTTOM,
+                    MotionToast.Companion.LONG_DURATION,
+                    ResourcesCompat.getFont(this, R.font.helvetica_regular))
             }
             else
             {
@@ -71,14 +108,29 @@ class RegisterActivity : AppCompatActivity() {
                     currentUSerDb?.child("lastname")?.setValue(lastName)
                     currentUSerDb?.child("email")?.setValue(email)
 
-                    Toast.makeText(this, "Registration Success. ", Toast.LENGTH_LONG).show()
+                    MotionToast.Companion.createToast(
+                        this,
+                        "Successful",
+                        "Registration successful",
+                        MotionToast.Companion.TOAST_SUCCESS,
+                        MotionToast.Companion.GRAVITY_BOTTOM,
+                        MotionToast.Companion.LONG_DURATION,
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular))
+
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
                 else
                 {
-                    Toast.makeText(this, "Registration failed, please try again! ", Toast.LENGTH_LONG).show()
+                    MotionToast.Companion.createToast(
+                        this,
+                        "Failed",
+                        "Registration failed, please try again!",
+                        MotionToast.Companion.TOAST_ERROR,
+                        MotionToast.Companion.GRAVITY_BOTTOM,
+                        MotionToast.Companion.LONG_DURATION,
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular))
                 }
             }
     }

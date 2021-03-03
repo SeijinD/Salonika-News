@@ -74,6 +74,9 @@ dependencies {
     // Rounded Image View
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    // Motion Toast
+    implementation 'com.github.Spikeysanju:MotionToast:1.3.3.4'
+
     // PinView
 //    implementation 'com.chaos.view:pinview:1.4.3'
 
