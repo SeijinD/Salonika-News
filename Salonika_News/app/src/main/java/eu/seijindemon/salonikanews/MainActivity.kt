@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -31,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.navigation_header.*
+import www.sanju.motiontoast.MotionToast
 import java.util.*
 
 
@@ -82,13 +84,13 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun loadHeader()
     {
-        val user = auth.currentUser
-        val userreference = databaseReference?.child(user?.uid!!)
+        val user = auth.currentUser!!
+        val userreference = databaseReference?.child(user.uid)
 
         userreference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                header_first_last_name.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
-                header_email.text = snapshot.child("email").value.toString()
+                header_first_last_name.text = user.displayName
+                header_email.text = user.email
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -147,7 +149,14 @@ class MainActivity : AppCompatActivity() {
                         )
                     )
                 } catch (e: ActivityNotFoundException) {
-                    Toast.makeText(this, "Privacy Policy Not Found!", Toast.LENGTH_SHORT).show()
+                    MotionToast.Companion.createColorToast(
+                        this,
+                        "Warning",
+                        "Privacy Policy Not Found!",
+                        MotionToast.Companion.TOAST_WARNING,
+                        MotionToast.Companion.GRAVITY_BOTTOM,
+                        MotionToast.Companion.LONG_DURATION,
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular))
                 }
                 true
             }

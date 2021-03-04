@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener{
             if(emailFormLogin.text.toString().trim().isEmpty())
             {
-                MotionToast.Companion.createToast(
+                MotionToast.Companion.createColorToast(
                     this,
                     "Warning",
                     "Input Email",
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
             }
             else if(passwordFormLogin.text.toString().trim().isEmpty())
             {
-                MotionToast.Companion.createToast(
+                MotionToast.Companion.createColorToast(
                     this,
                     "Warning",
                     "Input Password",
@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this){ task ->
                 if(task.isSuccessful)
                 {
-                    MotionToast.Companion.createToast(
+                    MotionToast.Companion.createColorToast(
                         this,
                         "Successful",
                         "Login...",
@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else
                 {
-                    MotionToast.Companion.createToast(
+                    MotionToast.Companion.createColorToast(
                         this,
                         "Failed",
                         "Try Again...",

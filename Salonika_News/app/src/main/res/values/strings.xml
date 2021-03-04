@@ -14,5 +14,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="guest">Guest</string>
+    <string name="logout">Logout</string>
+    <string name="delete_profile">Delete Profile</string>
 
 </resources>

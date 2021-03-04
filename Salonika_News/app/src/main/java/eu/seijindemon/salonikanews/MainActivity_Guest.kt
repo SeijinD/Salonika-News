@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.navigation_header.*
+import www.sanju.motiontoast.MotionToast
 import java.util.*
 
 
@@ -116,7 +118,14 @@ class MainActivity_Guest : AppCompatActivity() {
                         )
                     )
                 } catch (e: ActivityNotFoundException) {
-                    Toast.makeText(this, "Privacy Policy Not Found!", Toast.LENGTH_SHORT).show()
+                    MotionToast.Companion.createColorToast(
+                        this,
+                        "Warning",
+                        "Privacy Policy Not Found!",
+                        MotionToast.Companion.TOAST_WARNING,
+                        MotionToast.Companion.GRAVITY_BOTTOM,
+                        MotionToast.Companion.LONG_DURATION,
+                        ResourcesCompat.getFont(this, R.font.helvetica_regular))
                 }
                 true
             }
