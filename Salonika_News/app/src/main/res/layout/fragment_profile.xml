@@ -9,7 +9,7 @@
     tools:context=".fragments.ProfileFragment">
 
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -28,29 +28,83 @@
         android:src="@drawable/ic_baseline_face_24"
         app:riv_oval="true"/>
 
-    <TextView
-        android:id="@+id/firstNameProfile"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="FirstName" />
+        android:layout_width="wrap_content">
 
-    <TextView
-        android:id="@+id/lastNameProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="LastName" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/firstNameProfileView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:text="FirstName:"
+            tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/emailProfile"
-        android:layout_width="match_parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/firstNameProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/firstNameProfileView"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:text=""
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="Email" />
+        android:layout_width="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lastNameProfileView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:text="LastName:"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lastNameProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/lastNameProfileView"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:text=""
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/emailProfileView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:text="Email:"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/emailProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/emailProfileView"
+            android:layout_marginStart="20dp"
+            android:textSize="20sp"
+            android:text=""
+            tools:ignore="MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutButton"

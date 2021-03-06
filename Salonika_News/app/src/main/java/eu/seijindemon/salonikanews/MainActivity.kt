@@ -14,7 +14,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
@@ -28,9 +27,11 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.navigation_header.*
 import www.sanju.motiontoast.MotionToast
 import java.util.*
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("profile")
         // End Setup Firebase
+        checkUser()
         loadHeader()
 
         setContentView(R.layout.activity_main)
@@ -85,12 +87,17 @@ class MainActivity : AppCompatActivity() {
     private fun loadHeader()
     {
         val user = auth.currentUser!!
-        val userreference = databaseReference?.child(user.uid)
+        val userRef = databaseReference?.child(user.uid)!!
 
-        userreference?.addValueEventListener(object : ValueEventListener {
+        userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 header_first_last_name.text = user.displayName
                 header_email.text = user.email
+                if (snapshot.hasChild("profile")) {
+                    Picasso.get().load(snapshot.child("profile").value.toString()).into(imageProfile)
+                } else {
+                    Picasso.get().load(R.drawable.default_profile).into(imageProfile)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -114,8 +121,8 @@ class MainActivity : AppCompatActivity() {
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Salonika News")
                 intent.putExtra(
-                    Intent.EXTRA_TEXT,
-                    "Download this Application now: http://play.google.com/store/apps/details?id=$packageName"
+                        Intent.EXTRA_TEXT,
+                        "Download this Application now: http://play.google.com/store/apps/details?id=$packageName"
                 )
                 startActivity(Intent.createChooser(intent, "ShareVia"))
                 true
@@ -124,17 +131,17 @@ class MainActivity : AppCompatActivity() {
                 // Open Rate URL
                 try {
                     startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=$packageName")
-                        )
+                            Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=$packageName")
+                            )
                     )
                 } catch (e: ActivityNotFoundException) {
                     startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
-                        )
+                            Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                            )
                     )
                 }
                 true
@@ -143,20 +150,20 @@ class MainActivity : AppCompatActivity() {
                 // Open Privacy Police URL
                 try {
                     startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://my-informations.flycricket.io/privacy.html")
-                        )
+                            Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://my-informations.flycricket.io/privacy.html")
+                            )
                     )
                 } catch (e: ActivityNotFoundException) {
                     MotionToast.Companion.createColorToast(
-                        this,
-                        "Warning",
-                        "Privacy Policy Not Found!",
-                        MotionToast.Companion.TOAST_WARNING,
-                        MotionToast.Companion.GRAVITY_BOTTOM,
-                        MotionToast.Companion.LONG_DURATION,
-                        ResourcesCompat.getFont(this, R.font.helvetica_regular))
+                            this,
+                            "Warning",
+                            "Privacy Policy Not Found!",
+                            MotionToast.Companion.TOAST_WARNING,
+                            MotionToast.Companion.GRAVITY_BOTTOM,
+                            MotionToast.Companion.LONG_DURATION,
+                            ResourcesCompat.getFont(this, R.font.helvetica_regular))
                 }
                 true
             }
@@ -188,8 +195,8 @@ class MainActivity : AppCompatActivity() {
             for (item in 0 until menu.size()) {
                 val menuItem = menu.getItem(item)
                 menuItem.icon.setIconColor(
-                    if (menuItem.getShowAsAction() == 0) Color.BLACK
-                    else Color.WHITE
+                        if (menuItem.getShowAsAction() == 0) Color.BLACK
+                        else Color.WHITE
                 )
             }
         }
@@ -254,4 +261,16 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
     // End Back Pressed
+
+    // Check User
+    private fun checkUser()
+    {
+        val user = auth.currentUser
+        if (user == null)
+        {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+    }
+    // End Check User
 }

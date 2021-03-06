@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Continuation
@@ -23,15 +25,19 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.LoginActivity
+import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
+import kotlinx.android.synthetic.main.activity_login.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.navigation_header.*
 import www.sanju.motiontoast.MotionToast
 
 
 class ProfileFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
     private var userReference :  DatabaseReference? = null
     private var database: FirebaseDatabase? = null
     private var storageRef: StorageReference? = null
@@ -47,16 +53,10 @@ class ProfileFragment : Fragment() {
         database = FirebaseDatabase.getInstance()
         userReference = database?.reference!!.child("profile")
         storageRef = FirebaseStorage.getInstance().reference.child("User Images")
-        val user = auth.currentUser!!
-        val userreference = userReference?.child(user.uid)!!
+        user = auth.currentUser!!
+        val userRef = userReference?.child(user.uid)!!
 
-        loadProfile(user, userreference)
-
-
-
-
-
-
+        loadProfile(user, userRef)
 
         view.logoutButton.setOnClickListener{
             auth.signOut()
@@ -66,31 +66,47 @@ class ProfileFragment : Fragment() {
         }
 
         view.deleteProfileButton.setOnClickListener{
-            user.delete()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful)
-                    {
-                        MotionToast.Companion.createColorToast(
-                            this.requireActivity(),
-                            "Successful",
-                            "Profile Deleted",
-                            MotionToast.Companion.TOAST_SUCCESS,
-                            MotionToast.Companion.GRAVITY_BOTTOM,
-                            MotionToast.Companion.LONG_DURATION,
-                            ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
+            val mBuilder = AlertDialog.Builder(requireContext())
+            mBuilder.setTitle("Are you Sure?")
+            mBuilder.setMessage("If you delete your account, you will be a guest user.")
+            mBuilder.setPositiveButton("Delete") { dialog, which ->
+                user = auth.currentUser!!
+                user.delete()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful)
+                        {
+                            userRef.removeValue()
+                            MotionToast.Companion.createColorToast(
+                                    this.requireActivity(),
+                                    "Successful",
+                                    "Profile Deleted",
+                                    MotionToast.Companion.TOAST_SUCCESS,
+                                    MotionToast.Companion.GRAVITY_BOTTOM,
+                                    MotionToast.Companion.LONG_DURATION,
+                                    ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
 
-                        val intent = Intent(activity, LoginActivity::class.java)
-                        startActivity(intent)
-                        activity?.finish()
+                            val intent = Intent(activity, LoginActivity::class.java)
+                            startActivity(intent)
+                            activity?.finish()
+                        }
+                        else
+                        {
+                            MotionToast.Companion.createColorToast(
+                                    this.requireActivity(),
+                                    "UnSuccessful",
+                                    "Profile Not Deleted",
+                                    MotionToast.Companion.TOAST_ERROR,
+                                    MotionToast.Companion.GRAVITY_BOTTOM,
+                                    MotionToast.Companion.LONG_DURATION,
+                                    ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
+                        }
                     }
-                }
+            }
+            mBuilder.show()
         }
-
         view.profile_image.setOnClickListener{
             pickImage()
         }
-
-
         return view
     }
 
@@ -110,13 +126,13 @@ class ProfileFragment : Fragment() {
         {
             imageUri = data.data
             MotionToast.Companion.createColorToast(
-                this.requireActivity(),
-                "Wait",
-                "Image Uploading...",
-                MotionToast.Companion.TOAST_INFO,
-                MotionToast.Companion.GRAVITY_BOTTOM,
-                MotionToast.Companion.LONG_DURATION,
-                ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
+                    this.requireActivity(),
+                    "Wait",
+                    "Image Uploading...",
+                    MotionToast.Companion.TOAST_INFO,
+                    MotionToast.Companion.GRAVITY_BOTTOM,
+                    MotionToast.Companion.LONG_DURATION,
+                    ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
             uploadImageToDatabase()
         }
     }
@@ -133,9 +149,8 @@ class ProfileFragment : Fragment() {
             val uploadTask: StorageTask<*>
             uploadTask = fileRef.putFile(imageUri!!)
 
-            uploadTask.continueWithTask(Continuation <UploadTask.TaskSnapshot, Task<Uri>>{ task ->
-                if(!task.isSuccessful)
-                {
+            uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                if (!task.isSuccessful) {
                     task.exception?.let {
                         throw it
                     }
@@ -158,26 +173,36 @@ class ProfileFragment : Fragment() {
     }
     // End Profile Image
 
-    // Load Profile Informations + Photo
+    // Load Profile Information + Photo
     @SuppressLint("SetTextI18n")
-    private fun loadProfile(user: FirebaseUser, userreference: DatabaseReference)
+    private fun loadProfile(user: FirebaseUser, userRef: DatabaseReference)
     {
-        userreference.addValueEventListener(object : ValueEventListener {
+//        val font = Typeface.createFromAsset(this.requireActivity().assets, "")
+//        firstNameProfile.typeface = font
+//        lastNameProfile.typeface = font
+//        emailProfile.typeface = font
+        userRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(context!=null)
-                {
-                    firstNameProfile.text = "FirstName : " + snapshot.child("firstname").value.toString()
-                    lastNameProfile.text = "LastName : " + snapshot.child("lastname").value.toString()
-                    emailProfile.text = "Email : " + user.displayName
-
-                    Picasso.get().load(snapshot.child("profile").value.toString()).into(view?.profile_image)
+                if (context != null) {
+                    firstNameProfile.text = snapshot.child("firstname").value.toString()
+                    lastNameProfile.text = snapshot.child("lastname").value.toString()
+                    emailProfile.text = user.email
+                    if (snapshot.hasChild("profile"))
+                    {
+                        Picasso.get().load(snapshot.child("profile").value.toString()).into(profile_image)
+                    }
+                    else
+                    {
+                        Picasso.get().load(R.drawable.default_profile).into(profile_image)
+                    }
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
     }
-    // End Load Profile Informations + Photo
+    // End Load Profile Information + Photo
 
 }
