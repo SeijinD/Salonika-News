@@ -1,6 +1,5 @@
 package eu.seijindemon.salonikanews
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -26,8 +25,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
 import com.squareup.picasso.Picasso
+import eu.seijindemon.salonikanews.modelClasses.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -40,27 +42,30 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: FirebaseUser
     private var databaseReference :  DatabaseReference? = null
     private var database: FirebaseDatabase? = null
+    private var userReference :  DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadLocale()
 
-        // Setup Firebase
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile")
-        // End Setup Firebase
+        loadLocale()
+        setupFirebase()
         checkUser()
         loadHeader()
-
         setContentView(R.layout.activity_main)
+        drawNavTool() // DrawLayout Menu, Navigation, Toolbar
 
+    }
+
+    // // DrawLayout Menu, Navigation, Toolbar
+    private fun drawNavTool()
+    {
         // DrawLayout
         val drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
         findViewById<ImageView>(R.id.imageMenu).setOnClickListener{
-                drawerLayout.openDrawer(GravityCompat.START)
+            drawerLayout.openDrawer(GravityCompat.START)
         }
         // Nav
         val navigationView: NavigationView = findViewById(R.id.navigationView)
@@ -71,41 +76,45 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             textTitle.text = destination.label
         }
-        // End Nav
-
         // Toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
-        // End Toolbar
-
-
-
     }
+    // End DrawLayout Menu, Navigation, Toolbar
 
-    @SuppressLint("SetTextI18n")
+    // Firebase objects setup
+    private fun setupFirebase()
+    {
+        // Setup Firebase
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        databaseReference = database?.reference!!.child("profile")
+        user = auth.currentUser!!
+        userReference = databaseReference?.child(user.uid)!!
+        // End Setup Firebase
+    }
+    // End Firebase objects setup
+
+    // Load Header
     private fun loadHeader()
     {
-        val user = auth.currentUser!!
-        val userRef = databaseReference?.child(user.uid)!!
-
-        userRef.addValueEventListener(object : ValueEventListener {
+        userReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                header_first_last_name.text = user.displayName
-                header_email.text = user.email
+                header_first_last_name.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
+                header_email.text = snapshot.child("email").value.toString()
                 if (snapshot.hasChild("profile")) {
                     Picasso.get().load(snapshot.child("profile").value.toString()).into(imageProfile)
                 } else {
                     Picasso.get().load(R.drawable.default_profile).into(imageProfile)
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
     }
-
+    // End Load Header
 
     // Menu Item Click
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -256,10 +265,10 @@ class MainActivity : AppCompatActivity() {
     // End Change Language
 
     // Back Pressed
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
-    }
+//    override fun onBackPressed() {
+//        startActivity(Intent(this, LoginActivity::class.java))
+//        finish()
+//    }
     // End Back Pressed
 
     // Check User

@@ -4,13 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -25,7 +23,6 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.LoginActivity
-import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
 import kotlinx.android.synthetic.main.activity_login.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*

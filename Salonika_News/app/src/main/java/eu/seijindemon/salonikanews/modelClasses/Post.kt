@@ -5,9 +5,11 @@ data class PostInfo(
 )
 
 data class Post(
-    var title: String,
-    var category: String,
-    var author: String,
-    var admin: String,
-    var date: String
+        var id: String = "",
+        var title: String = "",
+        var description: String = "",
+        var category: String = "",
+        var author: String = "",
+        var admin: String = "",
+        var date: String = ""
 )

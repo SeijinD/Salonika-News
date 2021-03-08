@@ -218,9 +218,9 @@ class MainActivity_Guest : AppCompatActivity() {
     // End Change Language
 
     // Back Pressed
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity_Guest::class.java))
-        finish()
-    }
+//    override fun onBackPressed() {
+//        startActivity(Intent(this, MainActivity_Guest::class.java))
+//        finish()
+//    }
     // End Back Pressed
 }
