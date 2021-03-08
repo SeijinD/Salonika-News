@@ -1,5 +1,6 @@
 package eu.seijindemon.salonikanews
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -10,9 +11,12 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.text.Layout
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
@@ -27,14 +31,13 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import com.squareup.picasso.Picasso
-import eu.seijindemon.salonikanews.modelClasses.User
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.navigation_header.*
+import kotlinx.android.synthetic.main.navigation_header.view.*
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 
@@ -51,10 +54,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         loadLocale()
+        setContentView(R.layout.activity_main)
         setupFirebase()
         checkUser()
         loadHeader()
-        setContentView(R.layout.activity_main)
         drawNavTool() // DrawLayout Menu, Navigation, Toolbar
 
     }
@@ -86,13 +89,11 @@ class MainActivity : AppCompatActivity() {
     // Firebase objects setup
     private fun setupFirebase()
     {
-        // Setup Firebase
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("profile")
         user = auth.currentUser!!
         userReference = databaseReference?.child(user.uid)!!
-        // End Setup Firebase
     }
     // End Firebase objects setup
 
@@ -100,6 +101,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadHeader()
     {
         userReference?.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot: DataSnapshot) {
                 header_first_last_name.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
                 header_email.text = snapshot.child("email").value.toString()
@@ -109,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                     Picasso.get().load(R.drawable.default_profile).into(imageProfile)
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -263,13 +266,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
     // End Change Language
-
-    // Back Pressed
-//    override fun onBackPressed() {
-//        startActivity(Intent(this, LoginActivity::class.java))
-//        finish()
-//    }
-    // End Back Pressed
 
     // Check User
     private fun checkUser()

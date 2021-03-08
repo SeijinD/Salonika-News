@@ -32,13 +32,20 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        userReference = database?.reference!!.child("profile")
+        setupFirebase()
 
         register()
 
     }
+
+    // Firebase objects setup
+    private fun setupFirebase()
+    {
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        userReference = database?.reference!!.child("profile")
+    }
+    // End Firebase objects setup
 
     private fun register()
     {
@@ -148,8 +155,7 @@ class RegisterActivity : AppCompatActivity() {
                         ResourcesCompat.getFont(this, R.font.helvetica_regular)
                     )
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 else

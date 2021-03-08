@@ -49,12 +49,7 @@ class AddPostFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_add_post, container, false)
 
-        database = FirebaseDatabase.getInstance()
-        postReference = database?.reference!!.child("post")
-        userReference = database?.reference!!.child("profile")
-        storageRef = FirebaseStorage.getInstance().reference.child("Post Images")
-        auth = FirebaseAuth.getInstance()
-        user = auth.currentUser!!
+        setupFirebase()
 
         val categoryItems = listOf("Athletics","Politics","Competitions")
         val adapter = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
@@ -63,31 +58,7 @@ class AddPostFragment : Fragment() {
         postId = System.currentTimeMillis().toString()
 
         view.uploadPostButton.setOnClickListener{
-            val title = view.titlePost.text.toString()
-            val description = view.descriptionPost.text.toString()
-            val category = view.autoTextCategory.text.toString()
-            val author = user.displayName!!
-            val admin = "Admin"
-            val currentDate = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")
-            val date = currentDate.format(formatter)
-
-            val currentPostDb = postReference?.child(postId)
-            currentPostDb?.child("title")?.setValue(title)
-            currentPostDb?.child("description")?.setValue(description)
-            currentPostDb?.child("category")?.setValue(category)
-            currentPostDb?.child("author")?.setValue(author)
-            currentPostDb?.child("admin")?.setValue(admin)
-            currentPostDb?.child("date")?.setValue(date)
-
-            MotionToast.Companion.createColorToast(
-                    this.requireActivity(),
-                    "Successful",
-                    "Post Uploaded",
-                    MotionToast.Companion.TOAST_SUCCESS,
-                    MotionToast.Companion.GRAVITY_BOTTOM,
-                    MotionToast.Companion.LONG_DURATION,
-                    ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
+            uploadPost()
         }
 
         view.post_image.setOnClickListener{
@@ -97,6 +68,49 @@ class AddPostFragment : Fragment() {
         return view
     }
 
+    // Firebase objects setup
+    private fun setupFirebase()
+    {
+        database = FirebaseDatabase.getInstance()
+        postReference = database?.reference!!.child("post")
+        userReference = database?.reference!!.child("profile")
+        storageRef = FirebaseStorage.getInstance().reference.child("Post Images")
+        auth = FirebaseAuth.getInstance()
+        user = auth.currentUser!!
+    }
+    // End Firebase objects setup
+
+    // Upload Post
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun uploadPost()
+    {
+        val title = titlePost.text.toString()
+        val description = descriptionPost.text.toString()
+        val category = autoTextCategory.text.toString()
+        val author = user.displayName!!
+        val admin = "Admin"
+        val currentDate = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")
+        val date = currentDate.format(formatter)
+
+        val currentPostDb = postReference?.child(postId)
+        currentPostDb?.child("title")?.setValue(title)
+        currentPostDb?.child("description")?.setValue(description)
+        currentPostDb?.child("category")?.setValue(category)
+        currentPostDb?.child("author")?.setValue(author)
+        currentPostDb?.child("admin")?.setValue(admin)
+        currentPostDb?.child("date")?.setValue(date)
+
+        MotionToast.Companion.createColorToast(
+                this.requireActivity(),
+                "Successful",
+                "Post Uploaded",
+                MotionToast.Companion.TOAST_SUCCESS,
+                MotionToast.Companion.GRAVITY_BOTTOM,
+                MotionToast.Companion.LONG_DURATION,
+                ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
+    }
+    // End Upload Post
 
     // Post Image
     private fun pickImage()
@@ -150,10 +164,10 @@ class AddPostFragment : Fragment() {
                     val downloadUrl = task.result
                     val url = downloadUrl.toString()
 
-                    val mapProfileImg = HashMap<String, Any>()
-                    mapProfileImg["post_image"] = url
+                    val mapPostImg = HashMap<String, Any>()
+                    mapPostImg["post_image"] = url
                     val currentUSerDb = postReference?.child((postId))
-                    currentUSerDb?.updateChildren(mapProfileImg)
+                    currentUSerDb?.updateChildren(mapPostImg)
                 }
                 prograssBar.dismiss()
             }

@@ -20,14 +20,12 @@ class LoginActivity : AppCompatActivity() {
 
         val currentuser = auth.currentUser
         if(currentuser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
         goRegister.setOnClickListener{
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
 
@@ -66,8 +64,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         guestButton.setOnClickListener{
-            val intent = Intent(this, MainActivity_Guest::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity_Guest::class.java))
             finish()
         }
     }
@@ -87,8 +84,7 @@ class LoginActivity : AppCompatActivity() {
                         MotionToast.Companion.LONG_DURATION,
                         ResourcesCompat.getFont(this, R.font.helvetica_regular))
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 else

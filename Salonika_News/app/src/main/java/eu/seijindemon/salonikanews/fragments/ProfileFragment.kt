@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -23,12 +24,14 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.LoginActivity
+import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
 import kotlinx.android.synthetic.main.activity_login.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.navigation_header.*
 import www.sanju.motiontoast.MotionToast
+import java.lang.ref.Reference
 
 
 class ProfileFragment : Fragment() {
@@ -42,33 +45,46 @@ class ProfileFragment : Fragment() {
     private val RequestCode = 438
     private var imageUri: Uri? = null
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        userReference = database?.reference!!.child("profile")
-        storageRef = FirebaseStorage.getInstance().reference.child("User Images")
-        user = auth.currentUser!!
+        setupFirebase()
         val userRef = userReference?.child(user.uid)!!
 
         loadProfile(user, userRef)
 
         view.logoutButton.setOnClickListener{
-            auth.signOut()
-            val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-            activity?.finish()
+            logout()
         }
 
         view.deleteProfileButton.setOnClickListener{
-            val mBuilder = AlertDialog.Builder(requireContext())
-            mBuilder.setTitle("Are you Sure?")
-            mBuilder.setMessage("If you delete your account, you will be a guest user.")
-            mBuilder.setPositiveButton("Delete") { dialog, which ->
-                user = auth.currentUser!!
-                user.delete()
+            deleteProfile(userRef)
+        }
+        view.profile_image.setOnClickListener{
+            pickImage()
+        }
+        return view
+    }
+
+    // Firebase objects setup
+    private fun setupFirebase()
+    {
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        userReference = database?.reference!!.child("profile")
+        storageRef = FirebaseStorage.getInstance().reference.child("User Images")
+        user = auth.currentUser!!
+    }
+    // End Firebase objects setup
+
+    private fun deleteProfile(userRef: DatabaseReference)
+    {
+        val mBuilder = AlertDialog.Builder(requireContext())
+        mBuilder.setTitle("Are you Sure?")
+        mBuilder.setMessage("If you delete your account, you will be a guest user.")
+        mBuilder.setPositiveButton("Delete") { dialog, which ->
+            user = auth.currentUser!!
+            user.delete()
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful)
                         {
@@ -98,14 +114,18 @@ class ProfileFragment : Fragment() {
                                     ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
                         }
                     }
-            }
-            mBuilder.show()
         }
-        view.profile_image.setOnClickListener{
-            pickImage()
-        }
-        return view
+        mBuilder.show()
     }
+
+    // Logout
+    private fun logout()
+    {
+        auth.signOut()
+        startActivity(Intent(context, LoginActivity::class.java))
+        activity?.finish()
+    }
+    // End Logout
 
     // Profile Image
     private fun pickImage()
