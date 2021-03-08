@@ -7,11 +7,68 @@
     android:orientation="vertical"
     tools:context=".fragments.AboutFragment">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textSize="20sp"
         android:text="@string/about" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Ειμαστε ο Γιώργος Καρανικόλας και ο Δημήτρης Τζήκας."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Ειμαστε Software Developers"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Ειμαστε φοιτητες του τμηματος ΔΙ.ΠΑ.Ε. Συνδου."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Η εργασια φτιαχτηκε στα πλαισια του μαθηματος Διαδικτυακες Υπηρεσιε Προστιθομενης Αξιας."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="Τα εργαλεια που χρησιμοποιηθηκαν ειναι Android Studio, Kotlin, Firebase Realtime Database, Firebase Auth και Material Design καθως και πολλες βιβλιοθηκες."/>
 
 </LinearLayout>

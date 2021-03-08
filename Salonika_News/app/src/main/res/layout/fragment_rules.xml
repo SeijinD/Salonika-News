@@ -7,11 +7,56 @@
     android:orientation="vertical"
     tools:context=".fragments.RulesFragment">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textSize="20sp"
         android:text="@string/rules" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="1) Οι συντακτες πρεπει να κανουν verify το email τους."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="2) Οι δημοσιευσεις πρωτα εγκρινονται απο admins."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="3) Οι δημοσιευσεις πρεπει να ειναι εγκυρες."/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:text="4) Αν ενας συντακτης γραψει 3 φορες μη εγκυρη δημοσιευση, τρωει ban."/>
 
 </LinearLayout>
