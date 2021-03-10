@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Title"
+        android:hint="@string/title"
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Description"
+        android:hint="@string/description"
         android:layout_marginTop="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Category"
+        android:hint="@string/category"
         android:layout_marginTop="10dp">
 
         <AutoCompleteTextView

@@ -16,5 +16,11 @@
     <string name="guest">Guest</string>
     <string name="logout">Logout</string>
     <string name="delete_profile">Delete Profile</string>
+    <string name="search">Search</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="more">More</string>
+    <string name="read">Read</string>
 
 </resources>
