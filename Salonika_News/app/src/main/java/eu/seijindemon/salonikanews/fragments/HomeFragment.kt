@@ -69,13 +69,17 @@ class HomeFragment : Fragment() {
         }
         postRecyclerView.adapter = adapter
 
-        val categoryItems = listOf("Athletics","Politics","Competitions")
+        val categoryItems = listOf("All","Athletics","Politics","Competitions")
         val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
         view.autoTextCategory.setAdapter(adapterCat)
         view.recycler_search_button.setOnClickListener{
             val categoryPost = view.autoTextCategory.text.toString()
 
-            val queryCategory = postReference?.orderByChild("category")?.equalTo(categoryPost)
+            var queryCategory = postReference?.orderByChild("category")?.equalTo(categoryPost)?.limitToLast(3)
+            if(categoryPost == "All")
+            {
+                queryCategory = postReference?.limitToLast(3)
+            }
 
             val optionsCategory = FirebaseRecyclerOptions.Builder<Post>()
                 .setQuery(queryCategory!!, Post::class.java)
