@@ -1,11 +1,13 @@
 package eu.seijindemon.salonikanews.fragments
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +18,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
-import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
 import eu.seijindemon.salonikanews.modelClasses.Post
 import kotlinx.android.synthetic.main.card_post.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.android.synthetic.main.fragment_home.view.autoTextCategory
 
 class HomeFragment : Fragment() {
 
@@ -68,12 +69,39 @@ class HomeFragment : Fragment() {
         }
         postRecyclerView.adapter = adapter
 
+        val categoryItems = listOf("Athletics","Politics","Competitions")
+        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
+        view.autoTextCategory.setAdapter(adapterCat)
+        view.recycler_search_button.setOnClickListener{
+            val categoryPost = view.autoTextCategory.text.toString()
+
+            val queryCategory = postReference?.orderByChild("category")?.equalTo(categoryPost)
+
+            val optionsCategory = FirebaseRecyclerOptions.Builder<Post>()
+                .setQuery(queryCategory!!, Post::class.java)
+                .setLifecycleOwner(this)
+                .build()
+
+            val adapterCategory = object : FirebaseRecyclerAdapter<Post, PostHolder>(optionsCategory) {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
+                    return PostHolder(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.card_post, parent, false))
+                }
+
+                override fun onBindViewHolder(holder: PostHolder, position: Int, model: Post) {
+                    holder.bind(model)
+                }
+
+            }
+            postRecyclerView.adapter = adapterCategory
+        }
 
         return view
     }
 
     class PostHolder(private val customerView: View, post: Post? = null) : RecyclerView.ViewHolder(customerView)
     {
+        @SuppressLint("SetTextI18n")
         fun bind(post: Post){
             with(post){
                 customerView.recycler_title.text = post.title
