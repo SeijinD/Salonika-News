@@ -1,0 +1,29 @@
+package eu.seijindemon.salonikanews.fragments
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.squareup.picasso.Picasso
+import eu.seijindemon.salonikanews.R
+import kotlinx.android.synthetic.main.open_card_post.view.*
+
+class OpenPostFragment : Fragment() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view =  inflater.inflate(R.layout.open_card_post, container, false)
+
+        view.recycler_title_2.text = HomeFragment.openPost.title
+        view.recycler_description_2.text = HomeFragment.openPost.description
+        Picasso.get().load(HomeFragment.openPost.post_image).into(view.recycler_image_2)
+
+        return view
+    }
+
+}

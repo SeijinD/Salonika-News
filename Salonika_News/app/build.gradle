@@ -49,6 +49,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+
     // Firebase
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
@@ -75,7 +78,7 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
 
     // Navigation Component
-    def nav_version = "2.3.3"
+    def nav_version = "2.3.4"
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"

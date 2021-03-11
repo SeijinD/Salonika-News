@@ -35,4 +35,14 @@
         android:name="eu.seijindemon.salonikanews.fragments.AddPostFragment"
         android:label="@string/addPost"
         tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/openPostFragment"
+        android:name="eu.seijindemon.salonikanews.fragments.OpenPostFragment"
+        android:label="Opened Post"
+        tools:layout="@layout/open_card_post" />
+    <activity
+        android:id="@+id/menuRegister"
+        android:name="eu.seijindemon.salonikanews.RegisterActivity"
+        android:label="@string/register"
+        tools:layout="@layout/activity_register" />
 </navigation>

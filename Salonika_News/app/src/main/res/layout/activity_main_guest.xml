@@ -57,7 +57,7 @@
             android:id="@+id/navHostFragment_Guest"
             android:name="androidx.navigation.fragment.NavHostFragment"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/main_guest"/>
+            app:navGraph="@navigation/main"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

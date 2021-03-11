@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -15,11 +16,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
+import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
 import eu.seijindemon.salonikanews.modelClasses.Post
 import kotlinx.android.synthetic.main.card_post.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.navigation_header.*
+import kotlinx.coroutines.currentCoroutineContext
 
 class HomeFragment : Fragment() {
 
@@ -29,9 +31,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var postRecyclerView: RecyclerView
 
+    companion object{
+        lateinit var openPost: Post
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -72,22 +77,24 @@ class HomeFragment : Fragment() {
         fun bind(post: Post){
             with(post){
                 customerView.recycler_title.text = post.title
-                customerView.recycler_description.text = post.description
+                customerView.recycler_description.text = post.description?.take(60) + "... Read More"
                 Picasso.get().load(post.post_image).into(customerView.recycler_image)
                 customerView.recycler_share_button.setOnClickListener{sharePost()}
-                customerView.recycler_read_button.setOnClickListener{readMore()}
+                customerView.recycler_read_button.setOnClickListener{readMore(customerView,post)}
             }
         }
 
-        private fun readMore()
+        private fun readMore(view: View, post: Post)
         {
-
+            Navigation.findNavController(view).navigate(R.id.openPostFragment)
+            openPost = post
         }
 
         private fun sharePost()
         {
 
         }
+
     }
 
     // Firebase objects setup
