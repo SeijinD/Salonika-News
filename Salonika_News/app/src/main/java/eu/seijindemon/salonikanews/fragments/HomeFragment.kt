@@ -148,7 +148,7 @@ class HomeFragment : Fragment() {
     private fun setupFirebase()
     {
         database = FirebaseDatabase.getInstance()
-        postReference = database?.reference!!.child("post")
+        postReference = database?.reference!!.child("verified_post")
         storageRef = FirebaseStorage.getInstance().reference.child("Post Images")
     }
     // End Firebase objects setup
