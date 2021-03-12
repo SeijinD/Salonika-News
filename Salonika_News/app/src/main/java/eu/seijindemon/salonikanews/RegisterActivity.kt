@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -145,6 +146,17 @@ class RegisterActivity : AppCompatActivity() {
                     currentUSerDb?.child("lastname")?.setValue(lastName)
                     currentUSerDb?.child("email")?.setValue(email)
 
+                    currentUser.sendEmailVerification().addOnCompleteListener{
+                        MotionToast.Companion.createColorToast(
+                            this,
+                            "Successful",
+                            "Verification Email has been sent.",
+                            MotionToast.Companion.TOAST_SUCCESS,
+                            MotionToast.Companion.GRAVITY_BOTTOM,
+                            MotionToast.Companion.LONG_DURATION,
+                            ResourcesCompat.getFont(this, R.font.helvetica_regular)
+                        )
+                    }
                     MotionToast.Companion.createColorToast(
                         this,
                         "Successful",
@@ -154,8 +166,7 @@ class RegisterActivity : AppCompatActivity() {
                         MotionToast.Companion.LONG_DURATION,
                         ResourcesCompat.getFont(this, R.font.helvetica_regular)
                     )
-
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 }
                 else

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 import www.sanju.motiontoast.MotionToast
 
@@ -19,8 +20,8 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        val currentuser = auth.currentUser
-        if(currentuser != null) {
+        val currentUser = auth.currentUser
+        if(currentUser != null && currentUser.isEmailVerified) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

@@ -53,6 +53,28 @@ class ProfileFragment : Fragment() {
 
         loadProfile(user, userRef)
 
+        user = auth.currentUser!!
+        if(!user.isEmailVerified)
+        {
+            view.verifyMsg.visibility = View.VISIBLE
+            view.resendCode.visibility = View.VISIBLE
+
+            view.resendCode.setOnClickListener{
+                user.sendEmailVerification().addOnCompleteListener{
+                    MotionToast.Companion.createColorToast(
+                        requireActivity(),
+                        "Successful",
+                        "Verification Email has been sent.",
+                        MotionToast.Companion.TOAST_SUCCESS,
+                        MotionToast.Companion.GRAVITY_BOTTOM,
+                        MotionToast.Companion.LONG_DURATION,
+                        ResourcesCompat.getFont(requireActivity(), R.font.helvetica_regular)
+                    )
+                }
+                logout()
+            }
+        }
+
         view.logoutButton.setOnClickListener{
             logout()
         }

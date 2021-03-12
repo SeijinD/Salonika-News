@@ -10,12 +10,27 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/verifyMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
+        android:visibility="gone"
         android:textSize="20sp"
-        android:text="@string/profile" />
+        android:textColor="@color/purple_700"
+        android:text="Email Not Verified" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/resendCode"
+        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:text="Verify Now"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/profile_image"
