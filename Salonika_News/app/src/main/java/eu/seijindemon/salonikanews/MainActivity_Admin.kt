@@ -56,7 +56,7 @@ class MainActivity_Admin : AppCompatActivity() {
 
 
     }
-    
+
     // // DrawLayout Menu, Navigation, Toolbar
     private fun drawNavTool()
     {

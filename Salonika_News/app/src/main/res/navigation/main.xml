@@ -50,4 +50,9 @@
         android:name="eu.seijindemon.salonikanews.fragments.VerifyPostFragment"
         android:label="Verify Post"
         tools:layout="@layout/fragment_verify_post" />
+    <fragment
+        android:id="@+id/openVerifyPostFragment"
+        android:name="eu.seijindemon.salonikanews.fragments.OpenVerifyPostFragment"
+        android:label="Opened Verify Post"
+        tools:layout="@layout/open_verify_card_post" />
 </navigation>

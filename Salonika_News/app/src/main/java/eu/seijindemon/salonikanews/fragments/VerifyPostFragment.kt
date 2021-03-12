@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.R
 import eu.seijindemon.salonikanews.modelClasses.Post
 import kotlinx.android.synthetic.main.card_verify_post.view.*
-import kotlinx.android.synthetic.main.fragment_home.view.autoTextCategory
+import kotlinx.android.synthetic.main.fragment_verify_post.view.autoTextCategory
 import kotlinx.android.synthetic.main.fragment_verify_post.view.*
 
 class VerifyPostFragment : Fragment() {
@@ -32,7 +32,7 @@ class VerifyPostFragment : Fragment() {
     private lateinit var postRecyclerView: RecyclerView
 
     companion object{
-        lateinit var openPost: Post
+        lateinit var openPostVerify: Post
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +88,7 @@ class VerifyPostFragment : Fragment() {
             val adapterCategory = object : FirebaseRecyclerAdapter<Post, PostHolder>(optionsCategory) {
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
                     return PostHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.card_post, parent, false))
+                        .inflate(R.layout.card_verify_post, parent, false))
                 }
 
                 override fun onBindViewHolder(holder: PostHolder, position: Int, model: Post) {
@@ -117,8 +117,8 @@ class VerifyPostFragment : Fragment() {
 
         private fun readMore(view: View, post: Post)
         {
-            Navigation.findNavController(view).navigate(R.id.openPostFragment)
-            openPost = post
+            Navigation.findNavController(view).navigate(R.id.openVerifyPostFragment)
+            openPostVerify = post
         }
 
         private fun verifyPost()
