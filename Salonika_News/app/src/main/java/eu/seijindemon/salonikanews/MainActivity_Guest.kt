@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
@@ -26,10 +25,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.navigation_header.*
+import kotlinx.android.synthetic.main.activity_main_guest.*
 import www.sanju.motiontoast.MotionToast
 import java.util.*
 
@@ -48,10 +44,10 @@ class MainActivity_Guest : AppCompatActivity() {
             drawerLayout_Guest.openDrawer(GravityCompat.START)
         }
         // Nav
-        val navigationView: NavigationView = findViewById(R.id.navigationView_Guest)
-        navigationView.itemIconTintList = null
+        val navigationView_Guest: NavigationView = findViewById(R.id.navigationView_Guest)
+        navigationView_Guest.itemIconTintList = null
         val navController: NavController = Navigation.findNavController(this, R.id.navHostFragment_Guest)
-        NavigationUI.setupWithNavController(navigationView, navController)
+        NavigationUI.setupWithNavController(navigationView_Guest, navController)
         // Change Title in Toolbar
         navController.addOnDestinationChangedListener{ _, destination, _ ->
             textTitle.text = destination.label

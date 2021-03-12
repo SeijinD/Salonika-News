@@ -45,4 +45,9 @@
         android:name="eu.seijindemon.salonikanews.RegisterActivity"
         android:label="@string/register"
         tools:layout="@layout/activity_register" />
+    <fragment
+        android:id="@+id/menuVerifyPost"
+        android:name="eu.seijindemon.salonikanews.fragments.VerifyPostFragment"
+        android:label="Verify Post"
+        tools:layout="@layout/fragment_verify_post" />
 </navigation>

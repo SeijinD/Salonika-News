@@ -11,12 +11,10 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.text.Layout
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
@@ -33,9 +31,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.activity_main.textTitle
+import kotlinx.android.synthetic.main.activity_main_admin.*
 import kotlinx.android.synthetic.main.navigation_header.*
 import kotlinx.android.synthetic.main.navigation_header.view.*
 import www.sanju.motiontoast.MotionToast
@@ -46,23 +43,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var user: FirebaseUser
-    private var databaseReference :  DatabaseReference? = null
-    private var database: FirebaseDatabase? = null
+    private var usersReference :  DatabaseReference? = null
     private var userReference :  DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         loadLocale()
-        setContentView(R.layout.activity_main)
         setupFirebase()
         checkUser()
-        loadHeader()
+        setContentView(R.layout.activity_main)
         drawNavTool() // DrawLayout Menu, Navigation, Toolbar
+        loadHeader()
 
     }
-
-
 
     // // DrawLayout Menu, Navigation, Toolbar
     private fun drawNavTool()
@@ -92,25 +86,26 @@ class MainActivity : AppCompatActivity() {
     private fun setupFirebase()
     {
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database?.reference!!.child("profile")
         user = auth.currentUser!!
-        userReference = databaseReference?.child(user.uid)!!
+        usersReference = FirebaseDatabase.getInstance().getReference("profile")
+        userReference = usersReference?.child(user.uid)!!
     }
     // End Firebase objects setup
 
     // Load Header
+    @SuppressLint("SetTextI18n")
     private fun loadHeader()
     {
-        userReference?.addValueEventListener(object : ValueEventListener {
+        val headView: View = navigationView.getHeaderView(0)
+        userReference?.addListenerForSingleValueEvent(object : ValueEventListener {
             @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot: DataSnapshot) {
-                header_first_last_name.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
-                header_email.text = snapshot.child("email").value.toString()
+                headView.header_first_last_name.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
+                headView.header_email.text = snapshot.child("email").value.toString()
                 if (snapshot.hasChild("profile")) {
-                    Picasso.get().load(snapshot.child("profile").value.toString()).into(imageProfile)
+                    Picasso.get().load(snapshot.child("profile").value.toString()).into(headView.imageProfile)
                 } else {
-                    Picasso.get().load(R.drawable.default_profile).into(imageProfile)
+                    Picasso.get().load(R.drawable.default_profile).into(headView.imageProfile)
                 }
             }
 
@@ -276,6 +271,11 @@ class MainActivity : AppCompatActivity() {
         if (user == null)
         {
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+        if(auth.currentUser?.email == "georgekara2010@yahoo.gr")
+        {
+            startActivity(Intent(this, MainActivity_Admin::class.java))
             finish()
         }
     }

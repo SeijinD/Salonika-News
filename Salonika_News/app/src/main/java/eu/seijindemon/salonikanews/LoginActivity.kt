@@ -3,6 +3,7 @@ package eu.seijindemon.salonikanews
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -84,8 +85,16 @@ class LoginActivity : AppCompatActivity() {
                         MotionToast.Companion.LONG_DURATION,
                         ResourcesCompat.getFont(this, R.font.helvetica_regular))
 
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    if(email == "georgekara2010@yahoo.gr")
+                    {
+                        startActivity(Intent(this, MainActivity_Admin::class.java))
+                        finish()
+                    }
+                    else
+                    {
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
                 }
                 else
                 {
