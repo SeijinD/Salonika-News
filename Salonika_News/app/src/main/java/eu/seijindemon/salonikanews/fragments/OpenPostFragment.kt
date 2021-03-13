@@ -1,5 +1,6 @@
 package eu.seijindemon.salonikanews.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,10 +17,13 @@ class OpenPostFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view =  inflater.inflate(R.layout.open_card_post, container, false)
 
         view.recycler_title_2.text = HomeFragment.openPost.title
+        view.recycler_author.text = "Author: " + HomeFragment.openPost.author
+        view.recycler_admin.text = "Admin: " + HomeFragment.openPost.admin
         view.recycler_description_2.text = HomeFragment.openPost.description
         Picasso.get().load(HomeFragment.openPost.post_image).into(view.recycler_image_2)
 

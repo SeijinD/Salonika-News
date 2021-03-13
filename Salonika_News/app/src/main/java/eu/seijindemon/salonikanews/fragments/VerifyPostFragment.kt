@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -36,6 +38,8 @@ class VerifyPostFragment : Fragment() {
         lateinit var openPostVerify: Post
         private var postReference :  DatabaseReference? = null
         private var verifiedPostReference :  DatabaseReference? = null
+
+        private lateinit var user: FirebaseUser
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +47,7 @@ class VerifyPostFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_verify_post, container, false)
 
         setupFirebase()
@@ -147,7 +147,7 @@ class VerifyPostFragment : Fragment() {
             currentPostDb?.child("description")?.setValue(post.description)
             currentPostDb?.child("category")?.setValue(post.category)
             currentPostDb?.child("author")?.setValue(post.author)
-            currentPostDb?.child("admin")?.setValue(post.admin)
+            currentPostDb?.child("admin")?.setValue(user.displayName)
             currentPostDb?.child("date")?.setValue(post.date)
             currentPostDb?.child("post_image")?.setValue(post.post_image)
 
@@ -185,6 +185,8 @@ class VerifyPostFragment : Fragment() {
         verifiedPostReference = database?.reference!!.child("verified_post")
         postReference = database?.reference!!.child("post")
         storageRef = FirebaseStorage.getInstance().reference.child("Post Images")
+
+        user = FirebaseAuth.getInstance().currentUser!!
     }
     // End Firebase objects setup
 

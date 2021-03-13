@@ -20,6 +20,7 @@ class OpenVerifyPostFragment : Fragment() {
         val view =  inflater.inflate(R.layout.open_verify_card_post, container, false)
 
         view.recycler_title_2.text = VerifyPostFragment.openPostVerify.title
+        view.recycler_author.text = VerifyPostFragment.openPostVerify.author
         view.recycler_description_2.text = VerifyPostFragment.openPostVerify.description
         Picasso.get().load(VerifyPostFragment.openPostVerify.post_image).into(view.recycler_image_2)
 
