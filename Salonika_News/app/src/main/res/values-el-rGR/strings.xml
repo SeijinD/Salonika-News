@@ -15,4 +15,14 @@
     <string name="addPost">Προσθήκη δημοσίευσης</string>
     <string name="register">Εγγραφή</string>
     <string name="guest">"Επισκέπτης "</string>
+    <string name="logout">Αποσύνδεση</string>
+    <string name="delete_profile">Διαγραφή προφίλ</string>
+    <string name="search">Αναζήτηση</string>
+    <string name="category">Κατηγορία</string>
+    <string name="description">Περιγραφή</string>
+    <string name="title">Τίτλος</string>
+    <string name="more">Περισσότερα</string>
+    <string name="read">Διαβάστε</string>
+    <string name="author">Συντάκτης</string>
+    <string name="admin">Διαχειριστής</string>
 </resources>

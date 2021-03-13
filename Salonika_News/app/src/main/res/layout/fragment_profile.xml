@@ -54,7 +54,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="20dp"
             android:textSize="20sp"
-            android:text="FirstName:"
+            android:text="@string/firstName"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="20dp"
             android:textSize="20sp"
-            android:text="LastName:"
+            android:text="@string/lastName"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -106,7 +106,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="20dp"
             android:textSize="20sp"
-            android:text="Email:"
+            android:text="@string/email"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.textview.MaterialTextView

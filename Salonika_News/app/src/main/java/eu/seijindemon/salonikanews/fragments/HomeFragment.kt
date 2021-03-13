@@ -50,6 +50,7 @@ class HomeFragment : Fragment() {
         val categoryItems = listOf("All","Athletics","Politics","Competitions")
         val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
         autoTextCategory.setAdapter(adapterCat)
+        autoTextCategory.setSelection(0)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -59,10 +60,6 @@ class HomeFragment : Fragment() {
 
         postRecyclerView = view.recycler_view
         postRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        val categoryItems = listOf("All","Athletics","Politics","Competitions")
-        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
-        view.autoTextCategory.setAdapter(adapterCat)
 
         val query = postReference?.limitToLast(3)
 

@@ -63,10 +63,6 @@ class VerifyPostFragment : Fragment() {
         postRecyclerView = view.recycler_view
         postRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val categoryItems = listOf("All", "Athletics", "Politics", "Competitions")
-        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
-        view.autoTextCategory.setAdapter(adapterCat)
-
         val query = postReference?.limitToLast(3)
 
         val options = FirebaseRecyclerOptions.Builder<Post>()
