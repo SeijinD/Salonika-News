@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.R
 import eu.seijindemon.salonikanews.modelClasses.Post
 import kotlinx.android.synthetic.main.card_verify_post.view.*
+import kotlinx.android.synthetic.main.fragment_verify_post.*
 import kotlinx.android.synthetic.main.fragment_verify_post.view.*
 import www.sanju.motiontoast.MotionToast
 
@@ -47,6 +48,13 @@ class VerifyPostFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val categoryItems = listOf("All", "Athletics", "Politics", "Competitions")
+        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
+        autoTextCategory.setAdapter(adapterCat)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_verify_post, container, false)
 
@@ -54,6 +62,10 @@ class VerifyPostFragment : Fragment() {
 
         postRecyclerView = view.recycler_view
         postRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        val categoryItems = listOf("All", "Athletics", "Politics", "Competitions")
+        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
+        view.autoTextCategory.setAdapter(adapterCat)
 
         val query = postReference?.limitToLast(3)
 
@@ -77,9 +89,6 @@ class VerifyPostFragment : Fragment() {
         }
         postRecyclerView.adapter = adapter
 
-        val categoryItems = listOf("All", "Athletics", "Politics", "Competitions")
-        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
-        view.autoTextCategory.setAdapter(adapterCat)
         view.recycler_search_button.setOnClickListener{
             val categoryPost = view.autoTextCategory.text.toString()
 

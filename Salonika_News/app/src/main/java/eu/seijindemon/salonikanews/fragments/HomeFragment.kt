@@ -23,6 +23,7 @@ import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
 import eu.seijindemon.salonikanews.modelClasses.Post
 import kotlinx.android.synthetic.main.card_post.view.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.autoTextCategory
 import www.sanju.motiontoast.MotionToast
@@ -44,6 +45,13 @@ class HomeFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val categoryItems = listOf("All","Athletics","Politics","Competitions")
+        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
+        autoTextCategory.setAdapter(adapterCat)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -51,6 +59,10 @@ class HomeFragment : Fragment() {
 
         postRecyclerView = view.recycler_view
         postRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        val categoryItems = listOf("All","Athletics","Politics","Competitions")
+        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
+        view.autoTextCategory.setAdapter(adapterCat)
 
         val query = postReference?.limitToLast(3)
 
@@ -72,9 +84,6 @@ class HomeFragment : Fragment() {
         }
         postRecyclerView.adapter = adapter
 
-        val categoryItems = listOf("All","Athletics","Politics","Competitions")
-        val adapterCat = ArrayAdapter(requireContext(), R.layout.category_list_item, categoryItems)
-        view.autoTextCategory.setAdapter(adapterCat)
         view.recycler_search_button.setOnClickListener{
             val categoryPost = view.autoTextCategory.text.toString()
 
