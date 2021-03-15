@@ -29,8 +29,11 @@ import kotlinx.android.synthetic.main.fragment_add_post.*
 import kotlinx.android.synthetic.main.fragment_add_post.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import www.sanju.motiontoast.MotionToast
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.HashMap
 
 class AddPostFragment : Fragment() {
 
@@ -45,7 +48,6 @@ class AddPostFragment : Fragment() {
     private var imageUri: Uri? = null
     private lateinit var postId: String
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_add_post, container, false)
 
@@ -81,7 +83,6 @@ class AddPostFragment : Fragment() {
     // End Firebase objects setup
 
     // Upload Post
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun uploadPost()
     {
         val title = titlePost.text.toString()
@@ -89,9 +90,18 @@ class AddPostFragment : Fragment() {
         val category = autoTextCategory.text.toString()
         val author = user.displayName!!
         val admin = "Admin"
-        val currentDate = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")
-        val date = currentDate.format(formatter)
+
+        // Work and under 26 Api
+        val dateFormat = SimpleDateFormat("HH:mm dd-MM-yyyy")
+        val calendar = Calendar.getInstance().time
+        val currentDate = dateFormat.format(calendar)
+        val date = currentDate
+
+        // Work only up 26 Api
+        //val currentDate = LocalDateTime.now()
+        //val formatter = DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")
+        //val date = currentDate.format(formatter)
+
 
         val currentPostDb = postReference?.child(postId)
         currentPostDb?.child("title")?.setValue(title)
@@ -100,6 +110,11 @@ class AddPostFragment : Fragment() {
         currentPostDb?.child("author")?.setValue(author)
         currentPostDb?.child("admin")?.setValue(admin)
         currentPostDb?.child("date")?.setValue(date)
+
+        if(imageUri != null)
+        {
+            uploadImageToDatabase()
+        }
 
         MotionToast.Companion.createColorToast(
                 this.requireActivity(),
@@ -135,7 +150,7 @@ class AddPostFragment : Fragment() {
                     MotionToast.Companion.GRAVITY_BOTTOM,
                     MotionToast.Companion.LONG_DURATION,
                     ResourcesCompat.getFont(this.requireContext(), R.font.helvetica_regular))
-            uploadImageToDatabase()
+//            uploadImageToDatabase()
         }
     }
 
