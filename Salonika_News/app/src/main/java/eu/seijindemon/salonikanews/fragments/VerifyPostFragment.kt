@@ -63,7 +63,7 @@ class VerifyPostFragment : Fragment() {
         postRecyclerView = view.recycler_view
         postRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val query = postReference?.limitToLast(3)
+        val query = postReference
 
         val options = FirebaseRecyclerOptions.Builder<Post>()
             .setQuery(query!!, Post::class.java)

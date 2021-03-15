@@ -1,5 +1,6 @@
 package eu.seijindemon.salonikanews.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
@@ -83,6 +84,7 @@ class AddPostFragment : Fragment() {
     // End Firebase objects setup
 
     // Upload Post
+    @SuppressLint("SimpleDateFormat")
     private fun uploadPost()
     {
         val title = titlePost.text.toString()
