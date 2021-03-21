@@ -60,7 +60,7 @@ dependencies {
     // Declare the dependency for the Firebase Authentication library
     implementation 'com.google.firebase:firebase-auth-ktx'
     // Realtime Database
-    implementation 'com.google.firebase:firebase-database-ktx:19.6.0'
+    implementation 'com.google.firebase:firebase-database-ktx:19.7.0'
     // Storage
     implementation 'com.google.firebase:firebase-storage-ktx'
     // FirebaseUI for Firebase Realtime Database
