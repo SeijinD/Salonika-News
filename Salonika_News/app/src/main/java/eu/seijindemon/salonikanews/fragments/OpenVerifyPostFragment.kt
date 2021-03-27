@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import eu.seijindemon.salonikanews.R
 import kotlinx.android.synthetic.main.open_verify_card_post.view.*
 
@@ -22,7 +22,7 @@ class OpenVerifyPostFragment : Fragment() {
         view.recycler_title_2.text = VerifyPostFragment.openPostVerify.title
         view.recycler_author.text = VerifyPostFragment.openPostVerify.author
         view.recycler_description_2.text = VerifyPostFragment.openPostVerify.description
-        Picasso.get().load(VerifyPostFragment.openPostVerify.post_image).into(view.recycler_image_2)
+        Glide.with(view).load(VerifyPostFragment.openPostVerify.post_image).into(view.recycler_image_2)
 
         return view
     }

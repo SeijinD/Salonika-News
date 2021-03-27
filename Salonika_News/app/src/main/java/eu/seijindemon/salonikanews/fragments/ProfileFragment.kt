@@ -9,10 +9,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -22,16 +22,13 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
-import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.LoginActivity
-import eu.seijindemon.salonikanews.MainActivity
 import eu.seijindemon.salonikanews.R
 import kotlinx.android.synthetic.main.activity_login.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.android.synthetic.main.navigation_header.*
 import www.sanju.motiontoast.MotionToast
-import java.lang.ref.Reference
 
 
 class ProfileFragment : Fragment() {
@@ -228,11 +225,11 @@ class ProfileFragment : Fragment() {
                     emailProfile.text = user.email
                     if (snapshot.hasChild("profile"))
                     {
-                        Picasso.get().load(snapshot.child("profile").value.toString()).into(profile_image)
+                        Glide.with(requireActivity()).load(snapshot.child("profile").value.toString()).into(profile_image)
                     }
                     else
                     {
-                        Picasso.get().load(R.drawable.default_profile).into(profile_image)
+                        Glide.with(requireActivity()).load(R.drawable.default_profile).into(profile_image)
                     }
                 }
             }

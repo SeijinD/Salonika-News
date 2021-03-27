@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.squareup.picasso.Picasso
 import eu.seijindemon.salonikanews.R
 import eu.seijindemon.salonikanews.modelClasses.Post
 import kotlinx.android.synthetic.main.card_verify_post.view.*
@@ -129,7 +129,7 @@ class VerifyPostFragment : Fragment() {
             with(post){
                 customerView.recycler_title.text = post.title
                 customerView.recycler_description.text = post.description?.take(60) + "... Read More"
-                Picasso.get().load(post.post_image).into(customerView.recycler_image)
+                Glide.with(customerView).load(post.post_image).into(customerView.recycler_image)
                 customerView.recycler_verify_button.setOnClickListener{verifyPost(
                     customerView,
                     post

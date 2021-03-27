@@ -25,11 +25,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main_admin.*
 import kotlinx.android.synthetic.main.navigation_header_admin.*
 import kotlinx.android.synthetic.main.navigation_header_admin.view.*
@@ -101,9 +101,10 @@ class MainActivity_Admin : AppCompatActivity() {
                 headView.header_first_last_name_admin.text = snapshot.child("firstname").value.toString() + " " + snapshot.child("lastname").value.toString()
                 headView.header_email_admin.text = snapshot.child("email").value.toString()
                 if (snapshot.hasChild("profile")) {
-                    Picasso.get().load(snapshot.child("profile").value.toString()).into(headView.imageProfile_admin)
+                    val loadImage = snapshot.child("profile").value.toString()
+                    Glide.with(applicationContext).load(loadImage).into(headView.imageProfile_admin)
                 } else {
-                    Picasso.get().load(R.drawable.default_profile).into(headView.imageProfile_admin)
+                    Glide.with(applicationContext).load(R.drawable.default_profile).into(headView.imageProfile_admin)
                 }
             }
 
