@@ -63,6 +63,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/descriptionPost"
                 android:inputType="textMultiLine"
+                android:minHeight="150dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="20dp"
