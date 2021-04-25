@@ -1,6 +1,13 @@
 ## Salonika News
 
-### Lib:
+
+### Tool:
+- #### Android Studio
+
+### Language:
+- #### Kotlin
+
+### Libraries:
 - #### Firebase
 - #### Firebase UI
 - #### Navigation Component
