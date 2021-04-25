@@ -1,13 +1,14 @@
 ## Salonika News
 
 
-### Tool:
+### Tools:
 - #### Android Studio
 
 ### Language:
 - #### Kotlin
 
 ### Libraries:
+- #### Material Design
 - #### Firebase
 - #### Firebase UI
 - #### Navigation Component
