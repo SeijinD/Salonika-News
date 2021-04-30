@@ -55,7 +55,10 @@ class HomeFragment : Fragment() {
         setupFirebase()
 
         postRecyclerView = view.recycler_view
-        postRecyclerView.layoutManager = LinearLayoutManager(context)
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.reverseLayout = true
+        mLayoutManager.stackFromEnd = true
+        postRecyclerView.layoutManager = mLayoutManager
 
         val query = postReference
 
