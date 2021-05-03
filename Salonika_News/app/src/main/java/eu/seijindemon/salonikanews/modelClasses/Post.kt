@@ -13,3 +13,4 @@ data class Post(
         var date: String? = null,
         var post_image: String? = null
 )
+

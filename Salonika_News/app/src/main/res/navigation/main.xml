@@ -55,4 +55,9 @@
         android:name="eu.seijindemon.salonikanews.fragments.OpenVerifyPostFragment"
         android:label="Opened Verify Post"
         tools:layout="@layout/open_verify_card_post" />
+    <fragment
+        android:id="@+id/menuEmailForm"
+        android:name="eu.seijindemon.salonikanews.fragments.EmailFormFragment"
+        android:label="@string/email_form"
+        tools:layout="@layout/email_form" />
 </navigation>
